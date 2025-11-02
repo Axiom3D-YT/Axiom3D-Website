@@ -2,6 +2,9 @@ window.addEventListener('load', () => {
     const splash = document.getElementById('splash-screen');
     const header = document.querySelector('header');
     const main = document.querySelector('main');
+    const aboutBtn = document.getElementById('about-btn');
+    const aboutModal = document.getElementById('about-modal');
+    const closeBtn = document.querySelector('.close-btn');
 
     const showMainContent = () => {
         if (splash.style.opacity !== '0') {
@@ -20,5 +23,19 @@ window.addEventListener('load', () => {
     splash.addEventListener('click', () => {
         clearTimeout(splashTimeout);
         showMainContent();
+    });
+
+    aboutBtn.addEventListener('click', () => {
+        aboutModal.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        aboutModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target == aboutModal) {
+            aboutModal.style.display = 'none';
+        }
     });
 });
