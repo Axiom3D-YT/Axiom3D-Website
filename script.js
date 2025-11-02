@@ -6,24 +6,35 @@ window.addEventListener('load', () => {
     const aboutModal = document.getElementById('about-modal');
     const closeBtn = document.querySelector('.close-btn');
 
-    const showMainContent = () => {
+    const showMainContent = (skipAnimation) => {
         if (splash.style.opacity !== '0') {
-            splash.style.opacity = '0';
-            setTimeout(() => {
+            if (skipAnimation) {
                 splash.style.display = 'none';
                 header.style.opacity = '1';
                 main.style.opacity = '1';
                 document.body.style.overflow = 'auto';
-            }, 1000);
+            } else {
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    header.style.opacity = '1';
+                    main.style.opacity = '1';
+                    document.body.style.overflow = 'auto';
+                }, 1000);
+            }
         }
     };
 
-    const splashTimeout = setTimeout(showMainContent, 10000);
+    if (window.location.hash === '#main-content') {
+        showMainContent(true);
+    } else {
+        const splashTimeout = setTimeout(() => showMainContent(false), 10000);
 
-    splash.addEventListener('click', () => {
-        clearTimeout(splashTimeout);
-        showMainContent();
-    });
+        splash.addEventListener('click', () => {
+            clearTimeout(splashTimeout);
+            showMainContent(false);
+        });
+    }
 
     aboutBtn.addEventListener('click', () => {
         aboutModal.style.display = 'block';
