@@ -257,3 +257,58 @@ h2 {
     75% { content: '...'; }
     100% { content: ''; }
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    nav a {
+        margin: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .glitch {
+        font-size: 3rem;
+    }
+
+    .dots {
+        font-size: 3rem;
+    }
+
+    main {
+        padding: 0 1rem;
+    }
+
+    section {
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .icon-links li {
+        margin: 0.5rem;
+    }
+
+    .icon-links a {
+        font-size: 1rem;
+    }
+
+    .icon-links a i {
+        font-size: 1.5rem;
+    }
+
+    .modal-content {
+        width: 90%;
+        margin: 10% auto;
+    }
+}
