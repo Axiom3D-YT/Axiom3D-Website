@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom3D - Spacemouse</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Ensure header is visible on this page */
+        header {
+            opacity: 1 !important;
+        }
+        
+        .project-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            background: rgba(0, 255, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            width: 300px; /* Fixed width for consistency */
+        }
+
+        .download-btn:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 20px #00ff00;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .stay-tuned {
+            color: #00ffff;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            text-shadow: 0 0 5px #00ffff;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body class="projects-page">
+    <header>
+        <h1><a href="index.html">Axiom3D</a></h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+        </nav>
+    </header>
+    <main>
+        <div class="project-content">
+            <div class="glitch-container">
+                <div class="glitch" data-text="Adafruit qt py 2040 X Spacemouse" style="font-size: 2.5rem;">Adafruit qt py 2040 X Spacemouse</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem;">
+                <a href="https://github.com/Axiom3D-YT/Axiom3D-YT.github.io/raw/refs/heads/main/assest/spacemouse-final-cable.ino.uf2" class="download-btn">
+                    Download Cable Version
+                </a>
+                <a href="https://github.com/Axiom3D-YT/Axiom3D-YT.github.io/raw/refs/heads/main/assest/spacemouse-final-no-cable.ino.uf2" class="download-btn">
+                    Download No-Cable Version
+                </a>
+            </div>
+
+            <div class="glitch-container" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
+                <div class="glitch" data-text="Stay Tuned:" style="font-size: 1.5rem;">Stay Tuned:</div>
+                <div class="glitch" data-text="- Wireless" style="font-size: 1.2rem;">- Wireless</div>
+                <div class="glitch" data-text="- ESP32" style="font-size: 1.2rem;">- ESP32</div>
+                <div class="glitch" data-text="- Touchscreen" style="font-size: 1.2rem;">- Touchscreen</div>
+                <div class="glitch" data-text="Coming Soon!" style="font-size: 1.5rem; margin-top: 1rem;">Coming Soon!</div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
