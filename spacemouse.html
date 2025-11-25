@@ -94,6 +94,31 @@
                     Download No-Cable Version
                 </a>
             </div>
+                        <!-- Wiring Schematics Section -->
+            <div class="schematics-section" style="margin-top:2rem;">
+                <h2 style="color:#00ff00;">Wiring Schematics</h2>
+                <div style="display:flex; gap:2rem; justify-content:center;">
+                    <!-- Schematic 1 Preview -->
+                    <div style="cursor:pointer;" onclick="showSchematic(1)">
+                        <img src="https://raw.githubusercontent.com/Axiom3D-YT/Axiom3D-YT.github.io/refs/heads/main/assest/WiringDiagramStemmaCable.jpg" 
+                             alt="Cable Version Schematic" style="width:150px; border:2px solid #00ff00; border-radius:8px;">
+                        <div style="color:#00ff00; margin-top:0.5rem;">Cable Version</div>
+                    </div>
+                    <!-- Schematic 2 Preview -->
+                    <div style="cursor:pointer;" onclick="showSchematic(2)">
+                        <img src="https://raw.githubusercontent.com/Axiom3D-YT/Axiom3D-YT.github.io/refs/heads/main/assest/WiringDiagramNoStemmaCable.jpg" 
+                             alt="No-Cable Version Schematic" style="width:150px; border:2px solid #00ff00; border-radius:8px;">
+                        <div style="color:#00ff00; margin-top:0.5rem;">No-Cable Version</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal for Expanded Schematic -->
+            <div id="schematicModal" style="display:none; position:fixed; z-index:999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.9); align-items:center; justify-content:center;">
+                <span onclick="closeSchematic()" style="position:absolute;top:30px;right:50px;font-size:2rem;color:#fff;cursor:pointer;">&times;</span>
+                <img id="modalImage" src="" alt="Full Schematic" style="max-width:90vw;max-height:80vh; border:4px solid #00ff00; border-radius:16px;">
+                <div id="modalLabel" style="color:#00ff00; font-size:1.2rem; margin-top:1rem;"></div>
+            </div>
 
             <div class="glitch-container" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
                 <div class="glitch" data-text="Stay Tuned:" style="font-size: 1.5rem;">Stay Tuned:</div>
