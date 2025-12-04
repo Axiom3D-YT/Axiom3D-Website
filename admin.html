@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom3D - Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #333;
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            font-family: inherit;
+        }
+
+        button {
+            padding: 1rem 2rem;
+            background: #fff;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: #ccc;
+        }
+
+        .project-list-item {
+            border-bottom: 1px solid #333;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+            padding: 0.5rem 1rem;
+        }
+
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+
+        #config-section,
+        #login-section,
+        #dashboard-section {
+            display: none;
+        }
+
+        .status-msg {
+            margin-top: 1rem;
+            padding: 1rem;
+            display: none;
+        }
+
+        .success {
+            color: #4caf50;
+            border: 1px solid #4caf50;
+        }
+
+        .error {
+            color: #f44336;
+            border: 1px solid #f44336;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Axiom3D Admin</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+        </nav>
+    </header>
+
+    <main class="admin-container">
+        <!-- Configuration Section (First time setup) -->
+        <section id="config-section">
+            <h2>Configuration</h2>
+            <p>Enter your GitHub repository details.</p>
+            <div class="form-group">
+                <label>GitHub Username / Organization</label>
+                <input type="text" id="repo-owner" placeholder="e.g., Axiom3D-YT">
+            </div>
+            <div class="form-group">
+                <label>Repository Name</label>
+                <input type="text" id="repo-name" placeholder="e.g., Axiom3D-YT.github.io">
+            </div>
+            <button onclick="saveConfig()">Save Configuration</button>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login-section">
+            <h2>Login</h2>
+            <p>Enter your GitHub Personal Access Token.</p>
+            <div class="form-group">
+                <label>Personal Access Token (Repo Scope)</label>
+                <input type="password" id="github-token" placeholder="ghp_...">
+            </div>
+            <button onclick="login()">Login</button>
+            <p style="margin-top: 1rem; font-size: 0.8rem; color: #666;">
+                Token is stored locally in your browser. <a href="#" onclick="clearConfig()" style="color: #888;">Reset
+                    Config</a>
+            </p>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard-section">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2>Manage Projects</h2>
+                <button onclick="logout()" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Logout</button>
+            </div>
+
+            <div class="form-group">
+                <h3>Add New Project</h3>
+                <input type="text" id="new-title" placeholder="Project Title" style="margin-bottom: 0.5rem;">
+                <input type="text" id="new-link" placeholder="Link (e.g., my-project.html)"
+                    style="margin-bottom: 0.5rem;">
+                <textarea id="new-desc" placeholder="Description" rows="3"></textarea>
+                <button onclick="addProject()" style="margin-top: 0.5rem;">Add Project</button>
+            </div>
+
+            <div id="status-msg" class="status-msg"></div>
+
+            <h3>Current Projects</h3>
+            <div id="project-list">
+                <!-- List populated by JS -->
+            </div>
+        </section>
+    </main>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>

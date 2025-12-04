@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Axiom3D - Projects</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="projects-page">
     <header>
         <h1><a href="index.html">Axiom3D</a></h1>
@@ -13,19 +15,59 @@
             <a href="index.html">Home</a>
         </nav>
     </header>
-    <main style="flex-direction: column; gap: 3rem;">
-        <a href="spacemouse.html" class="glitch-link">
-            <div class="glitch-container">
-                <div class="glitch" data-text="Adafruit qt py 2040 X Spacemouse">Adafruit qt py 2040 X Spacemouse</div>
-            </div>
-        </a>
-        <div class="glitch-container" style="display: flex; flex-direction: column; gap: 0.5rem; align-items: center;">
-            <div class="glitch" data-text="Stay Tuned:" style="font-size: 1.5rem;">Stay Tuned:</div>
-            <div class="glitch" data-text="- Wireless -" style="font-size: 1.2rem;">- Wireless -</div>
-            <div class="glitch" data-text="- ESP32 -" style="font-size: 1.2rem;">- ESP32 -</div>
-            <div class="glitch" data-text="- Touchscreen -" style="font-size: 1.2rem;">- Touchscreen -</div>
-            <div class="glitch" data-text="All Coming Soon!" style="font-size: 1.5rem; margin-top: 1rem;">All Coming Soon!</div>
-        </div>
+    <main style="flex-direction: column; gap: 3rem;" id="projects-container">
+        <!-- Projects will be loaded here dynamically -->
+        <div class="loading">Loading projects...</div>
     </main>
+
+    <script>
+        fetch('projects.json')
+            .then(response => response.json())
+            .then(projects => {
+                const container = document.getElementById('projects-container');
+                container.innerHTML = ''; // Clear loading message
+
+                projects.forEach(project => {
+                    const projectLink = document.createElement('a');
+                    projectLink.href = project.link;
+                    projectLink.className = 'glitch-link';
+
+                    const glitchContainer = document.createElement('div');
+                    glitchContainer.className = 'glitch-container';
+
+                    const glitchText = document.createElement('div');
+                    glitchText.className = 'glitch';
+                    glitchText.setAttribute('data-text', project.title);
+                    glitchText.style.fontSize = '6rem'; // Match original style
+                    glitchText.textContent = project.title;
+
+                    glitchContainer.appendChild(glitchText);
+                    projectLink.appendChild(glitchContainer);
+                    container.appendChild(projectLink);
+                });
+
+                // Re-add the "Stay Tuned" section as static content or dynamic if preferred.
+                // For now, appending it statically to match original design.
+                const stayTuned = document.createElement('div');
+                stayTuned.className = 'glitch-container';
+                stayTuned.style.display = 'flex';
+                stayTuned.style.flexDirection = 'column';
+                stayTuned.style.gap = '0.5rem';
+                stayTuned.style.alignItems = 'center';
+                stayTuned.innerHTML = `
+                    <div class="glitch" data-text="Stay Tuned:" style="font-size: 2rem;">Stay Tuned:</div>
+                    <div class="glitch" data-text="Wireless" style="font-size: 1.5rem;">Wireless</div>
+                    <div class="glitch" data-text="ESP32" style="font-size: 1.5rem;">ESP32</div>
+                    <div class="glitch" data-text="Touchscreen" style="font-size: 1.5rem;">Touchscreen</div>
+                    <div class="glitch" data-text="Coming Soon!" style="font-size: 2rem; margin-top: 1rem;"><span class="looping-dots"></span> Coming Soon!</div>
+                `;
+                container.appendChild(stayTuned);
+            })
+            .catch(error => {
+                console.error('Error loading projects:', error);
+                document.getElementById('projects-container').innerHTML = '<p>Error loading projects.</p>';
+            });
+    </script>
 </body>
+
 </html>
