@@ -265,10 +265,18 @@
                 currentProjects = JSON.parse(content);
                 renderProjects();
             } catch (error) {
-                console.error(error);
-                showStatus('Error loading projects. Check console.', 'error');
-                if (error.message.includes('401')) logout(); // Invalid token
+                console.error('loadProjects error:', error);
+                if (error.message.includes('401')) {
+                    showStatus('Authentication failed. Check your token.', 'error');
+                    logout();
+                } else {
+                    showStatus('Error loading projects. Check console.', 'error');
+                }
             }
+            console.error(error);
+            showStatus('Error loading projects. Check console.', 'error');
+            if (error.message.includes('401')) logout(); // Invalid token
+        }
         }
 
         async function saveProjects(newProjects) {
