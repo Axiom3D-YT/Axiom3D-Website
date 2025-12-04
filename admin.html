@@ -250,20 +250,88 @@
                     }
                 });
 
+                if (response.status === 404) {
+                    // File does not exist yet – start with empty list
+                    currentProjects = [];
+                    currentSha = null;
+                    renderProjects();
+                    return;
+                }
                 if (!response.ok) throw new Error('Failed to fetch projects');
 
                 const data = await response.json();
                 currentSha = data.sha;
-                // Decode Base64 content
                 const content = atob(data.content);
                 currentProjects = JSON.parse(content);
-
                 renderProjects();
             } catch (error) {
                 console.error(error);
                 showStatus('Error loading projects. Check console.', 'error');
                 if (error.message.includes('401')) logout(); // Invalid token
             }
+        }
+
+        async function saveProjects(newProjects) {
+            try {
+                const url = `https://api.github.com/repos/${config.owner}/${config.name}/contents/projects.json`;
+                const content = btoa(JSON.stringify(newProjects, null, 4)); // Encode to Base64
+                const body = {
+                    message: 'Update projects via Admin Panel',
+                    content: content
+                };
+                // Include sha only if we already have one (i.e., updating existing file)
+                if (currentSha) body.sha = currentSha;
+
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/vnd.github.v3+json'
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!response.ok) throw new Error('Failed to save projects');
+
+                const data = await response.json();
+                currentSha = data.content.sha; // Update SHA for next write
+                currentProjects = newProjects;
+                renderProjects();
+                showStatus('Project saved successfully!', 'success');
+
+                // Clear form
+                document.getElementById('new-title').value = '';
+                document.getElementById('new-link').value = '';
+                document.getElementById('new-desc').value = '';
+            } catch (error) {
+                console.error(error);
+                showStatus('Error saving projects. Check console.', 'error');
+            }
+        }
+        try {
+            const url = `https://api.github.com/repos/${config.owner}/${config.name}/contents/projects.json`;
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!response.ok) throw new Error('Failed to fetch projects');
+
+            const data = await response.json();
+            currentSha = data.sha;
+            // Decode Base64 content
+            const content = atob(data.content);
+            currentProjects = JSON.parse(content);
+
+            renderProjects();
+        } catch (error) {
+            console.error(error);
+            showStatus('Error loading projects. Check console.', 'error');
+            if (error.message.includes('401')) logout(); // Invalid token
+        }
         }
 
         async function saveProjects(newProjects) {
